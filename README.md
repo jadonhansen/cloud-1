@@ -76,7 +76,7 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
         - Maximum number of instances to 6.
         - Create a health check.
         
-5. Create a firewall rule for frontend access:
+5. Create a firewall rule for external frontend access:
     1. Navigate to VPC Network tab in GCP.
     2. When creating a new firewall rule:
         - Set 'Direction' as Ingress.
