@@ -94,7 +94,15 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
         - Set range as `130.211.0.0/22 35.191.0.0/16`.
         - Check TCP on and set it to 80.
         
-6. Create the HTTPS Loadbalancer:
+6. Create a GCP managed SSL certificate:
+    (Has not been tested with loadbalancer IP address as the domain)
+    1. Navigate to 'Network Services' tab in GCP.
+    2. Select 'Load Balancing' tab and click on 'Advanced Menu'.
+    3. When creating a new certificate:
+        - Check 'Google-managed certificate'.
+        - Add your appropriate domain name OR use a reserved IP address (which you will be use in your loadbalancer frontend then).
+    
+7. Create the HTTPS Loadbalancer:
     1. Navigate to the 'Network Services' tab in GCP.
     2. When creating a new loadbalancer:
          - Choose HTTP/S loadbalancer.
@@ -103,9 +111,9 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
             created previously. Set the port number to 80. Check 'Enable Cloud CDN'. Apply the same health check you
             used for your Instance Group.
          - In frontend setup: Set protocol as HTTPS. Set your IP Address as static by creating a new one and reserving it.
-            Port must be 80.
+            Under certificate choose the SSL certificate you have just created.
         
-7. Create the HTTP Loadbalancer:
+8. Create the HTTP Loadbalancer:
     1. Navigate to the 'Network Services' tab in GCP.
     2. When creating a new loadbalancer:
          - Choose HTTP/S loadbalancer.
@@ -116,3 +124,10 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
             Check 'HTTPS redirect'.
          - In frontend setup: Set protocol as HTTP. Set your IP Address as the static address you are using for the HTTPS Loadbalancer.
             Port must be 80 (same as HTTPS Loadbalancer).
+            
+### NOTE:
+I bought and used a domain for this project, so when creating the SSL certificate that is where I entered
+in my domain name.
+If you are using a domain name then access your WordPress admin and set your 'WordPress Address' AND your 'Site Address'
+to your domain name, such as "https://www.jadonhansen.co.za".
+If you are not using a domain name then set your 'WordPress Address' AND your 'Site Address' to your HTTPS loadbalancer IP address.
