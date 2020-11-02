@@ -89,13 +89,13 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
 6. Create the HTTPS Loadbalancer:
     1. Navigate to the 'Network Services' tab in GCP.
     2. When creating a new loadbalancer:
-     - Choose HTTP/S loadbalancer.
-     - Choose 'From Internet to my VMs'.
-     - In backend setup: Set protocol as HTTPS and name it such. Set the instance-group as the group you have
-        created previously. Set the port number to 80. Check 'Enable Cloud CDN'. Apply the same health check you
-        used for your Instance Group.
-     - In frontend setup: Set protocol as HTTPS. Set your IP Address as static by creating a new one and reserving it.
-        Port must be 80.
+         - Choose HTTP/S loadbalancer.
+         - Choose 'From Internet to my VMs'.
+         - In backend setup: Set protocol as HTTPS and name it such. Set the instance-group as the group you have
+            created previously. Set the port number to 80. Check 'Enable Cloud CDN'. Apply the same health check you
+            used for your Instance Group.
+         - In frontend setup: Set protocol as HTTPS. Set your IP Address as static by creating a new one and reserving it.
+            Port must be 80.
         
 7. Create the HTTP Loadbalancer:
     1. Navigate to the 'Network Services' tab in GCP.
