@@ -48,7 +48,10 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
              define( 'DB_CHARSET', 'utf8mb4' );
              define( 'DB_COLLATE', 'utf8mb4_general_ci' );
           ```
-    5. Add https rules:
+    5. Install W3 Total Cache:
+        - Navigate to your WordPress admin and install the plugin 'W3 Total Cache'.
+        - Follow the instructions for the '.htaccess' file (see step 6 to see where it should be created).
+    6. Add https rules:
         - Add the following definition to 'wp-config.php' file:
           ```
             define('FORCE_SSL_ADMIN', true);
@@ -56,7 +59,7 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
                     $_SERVER['HTTPS']='on';
           ```
         - Create a file called '.htaccess' at path '/var/www/html'.
-        - Add the following rule to the '.htaccess' file:
+        - Add the following rule(as well as your instructions from step 5) to the '.htaccess' file:
           ```
             RewriteEngine On
             RewriteCond %{HTTP:X-Forwarded-Proto} =http
@@ -66,7 +69,7 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
 2. Create an Image from your WordPress instance:
     1. First stop the current WordPress VM you have been working on.
     2. Go to 'Compute Engine' tab on GCP and select 'Images' from the side panel.
-    3. When creating the image set 'Source Disk' as your WordPress VM and 'Location' as regional.
+    3. When creating the image set 'Source Disk' as your WordPress VM.
     
 3. Create an Instance Template from your Image:
     1. Navigate to 'Instance Templates' tab on GCP.
@@ -77,7 +80,6 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
 4. Create an Instance Group from your Instance Template:
     1. Navigate to 'Instance Groups' tab on GCP:
     2. When creating the group:
-        - Set 'Location' as Single Zone.
         - Set instance template as the one you have just created.
         - Set Autoscaling to on.
         - Minimum number of instances to 2.
@@ -107,9 +109,9 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
     2. When creating a new loadbalancer:
          - Choose HTTP/S loadbalancer.
          - Choose 'From Internet to my VMs'.
-         - In backend setup: Set protocol as HTTPS and name it such. Set the instance-group as the group you have
-            created previously. Set the port number to 80. Check 'Enable Cloud CDN'. Apply the same health check you
-            used for your Instance Group.
+         - In backend setup: Set protocol as HTTP and name it such. Set the instance-group as the group you have
+            created previously. Set the port number to 80. Check 'Enable Cloud CDN' with 'cache control headers'.
+            Apply the same health check you used for your Instance Group.
          - In frontend setup: Set protocol as HTTPS. Set your IP Address as static by creating a new one and reserving it.
             Under certificate choose the SSL certificate you have just created.
         
@@ -120,8 +122,8 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
          - Choose 'From Internet to my VMs'.
          - Do not create a backend.
          - Setup your host and path rules: Check 'Advanced host and path rule (URL redirect, URL rewrite)'.
-            Set action as 'Redirect the client...'. Response code should be 300.
-            Check 'HTTPS redirect'.
+            Set action as 'Redirect the client...'. Check 'Prefix redirect'.
+            Response code should be 301. Check 'HTTPS redirect'.
          - In frontend setup: Set protocol as HTTP. Set your IP Address as the static address you are using for the HTTPS Loadbalancer.
             Port must be 80 (same as HTTPS Loadbalancer).
             
