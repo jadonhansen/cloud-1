@@ -82,6 +82,7 @@ Setup a simple WordPress website on a cloud infrastructure (GCP was used).
     2. When creating the group:
         - Set instance template as the one you have just created.
         - Set Autoscaling to on.
+        - Set 'Location' as multiple zones to ensure higher availability.
         - Minimum number of instances to 2.
         - Maximum number of instances to 6.
         - Create a health check.
