@@ -1,5 +1,8 @@
 # cloud-1
 
+### Score 100/100
+99/100
+
 ### Project Description:
 Setup a simple WordPress website on a cloud infrastructure (GCP was used).
 ### Specifications:
